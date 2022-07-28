@@ -1,17 +1,16 @@
 function rangeReading(rangeOfNumbers){
-  sortArrayOfNumbers(rangeOfNumbers);
   let sortedNumber = sortArrayOfNumbers(rangeOfNumbers);
   let duplicateNumArr = findDuplicateNumber(sortedNumber);
   let uniqueNumberArr = getUniqueArray(sortedNumber);
-  let countReadingsArrays = countReadings(uniqueNumberArr);
-  // console.log(countReadingsArrays);
+  let countReadingsArrays = countReadings(uniqueNumberArr); 
   let finalReadingArrays;
   if(duplicateNumArr.length > 0){
     finalReadingArrays = findAndPushDuplicateNum(duplicateNumArr,countReadingsArrays);
   }else{
     finalReadingArrays =  countReadingsArrays;
-  }  
-  printRangeAndReadings(finalReadingArrays)
+  }
+  console.log(finalReadingArrays);  
+  return printRangeAndReadings(finalReadingArrays)
 }
 
 function printRangeAndReadings(newArray){
@@ -25,7 +24,7 @@ function printRangeAndReadings(newArray){
     finalPrintArr.push(output);
     output = [];
   }
-  console.log(finalPrintArr);
+  return finalPrintArr;
 }
 
 
@@ -51,32 +50,32 @@ function getUniqueArray(sortArray){
 }
 
 function countReadings(sortedArrNum){
-  var r = [];
-  var t = [];  
+  var real = [];
+  var temp = [];  
   for (var i = 0; i < sortedArrNum.length; ++i)
   {
       if (i == 0)
       {
-          t.push(sortedArrNum[i]);
+        temp.push(sortedArrNum[i]);
           continue;
       }      
       if (sortedArrNum[i - 1] != (sortedArrNum[i] - 1))
       {
-          r.push(t);
-          t = [];
+          real.push(temp);
+          temp = [];
       }
-      t.push(sortedArrNum[i]);
+      temp.push(sortedArrNum[i]);
   }
-  r.push(t);
-  return r;
+  real.push(temp);
+  return real;
 }
 
 function sortArrayOfNumbers(numArray){
-  numArray.sort(function(a, b) {
-    return a - b;
+  numArray.sort(function(num1, num2) {
+    return num1 - num2;
   });
   return numArray;
 }
 
-rangeReading([3, 5,3, 4, 10, 11, 12,10]);
-// console.log(sortArray);
+
+module.exports = {sortArrayOfNumbers,countReadings,getUniqueArray,findDuplicateNumber,printRangeAndReadings,rangeReading,findAndPushDuplicateNum}
